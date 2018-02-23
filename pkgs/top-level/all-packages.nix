@@ -1458,7 +1458,7 @@ with pkgs;
   bgs = callPackage ../tools/X11/bgs { };
 
   biber = callPackage ../tools/typesetting/biber {
-    inherit (perlPackages) buildPerlModule
+    inherit (perlPackages) buildPerlModuleAlternative
       autovivification BusinessISBN BusinessISMN BusinessISSN ConfigAutoConf
       DataCompare DataDump DateSimple EncodeEUCJPASCII EncodeHanExtra EncodeJIS2K
       DateTime DateTimeFormatBuilder DateTimeCalendarJulian
@@ -11976,6 +11976,9 @@ with pkgs;
   ### DEVELOPMENT / PERL MODULES
 
   buildPerlPackage = callPackage ../development/perl-modules/generic perl;
+  buildPerlPackageAlternative = callPackage ../development/perl-modules/generic_alternative {
+    inherit perl makeWrapper;
+  };
 
   perlPackages = recurseIntoAttrs (callPackage ./perl-packages.nix {
     overrides = (config.perlPackageOverrides or (p: {})) pkgs;

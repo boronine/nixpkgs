@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, buildPerlModule, autovivification, BusinessISBN
+{ stdenv, fetchFromGitHub, buildPerlModuleAlternative, autovivification, BusinessISBN
 , BusinessISMN, BusinessISSN, ConfigAutoConf, DataCompare, DataDump, DateSimple
 , DateTime, DateTimeFormatBuilder, DateTimeCalendarJulian
 , EncodeEUCJPASCII, EncodeHanExtra, EncodeJIS2K, ExtUtilsLibBuilder
@@ -8,7 +8,7 @@
 , TextCSV, TextCSV_XS, TextRoman, DataUniqid, LinguaTranslit, UnicodeNormalize, SortKey
 , TestDifferences }:
 
-buildPerlModule rec {
+buildPerlModuleAlternative rec {
   name = "biber-${version}";
   version = "2.7";
   src = fetchFromGitHub {

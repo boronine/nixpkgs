@@ -9,7 +9,7 @@
 
 let self = _self // overrides; _self = with self; {
 
-  inherit (pkgs) buildPerlPackage fetchurl fetchFromGitHub stdenv perl fetchsvn gnused;
+  inherit (pkgs) buildPerlPackage buildPerlPackageAlternative fetchurl fetchFromGitHub stdenv perl fetchsvn gnused;
 
   inherit (stdenv.lib) maintainers;
 
@@ -23,6 +23,14 @@ let self = _self // overrides; _self = with self; {
       checkPhase = "./Build test";
     });
 
+  buildPerlModuleAlternative = { buildInputs ? [], ... } @ args:
+    buildPerlPackageAlternative (args // {
+      buildInputs = buildInputs ++ [ ModuleBuild ];
+      preConfigure = "touch Makefile.PL";
+      buildPhase = "perl Build.PL --prefix=$out; ./Build build";
+      installPhase = "./Build install";
+      checkPhase = "./Build test";
+    });
 
   ack = buildPerlPackage rec {
     name = "ack-2.22";
